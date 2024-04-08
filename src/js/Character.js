@@ -11,27 +11,29 @@ export default class Character {
   }
 
   set attack(distance) {
-    if (Object.keys(this.damageReduction).includes(String(distance))) {
-      this._damage = this.damage * this.damageReduction[distance] / 100;
+    if (distance <= 5 && distance > 0) {
+      this.distance = distance;
     } else {
-      this._damage = 0;
+      throw new Error('Расстояние атаки должно быть от 1 до 5');
     }
   }
 
   get attack() {
-    return this._damage;
+    if (!this._stoned) {
+      return this._damage = this.damage * this.damageReduction[this.distance] / 100;
+    } else {
+      const reducedAttack = this.damage * this.damageReduction[this.distance] / 100;
+      return this._damage = reducedAttack - Math.log2(this.distance) * 5;
+    }
   }
 
-  set stoned(distance) {
-    if (Object.keys(this.damageReduction).includes(String(distance))) {
-      const reducedAttack = this.damage * this.damageReduction[distance] / 100;
-      this._damage = reducedAttack - Math.log2(distance) * 5;
-    } else {
-      this._damage = 0;
+  set stoned(select) {
+    if (select) {
+      this._stoned = select;
     }
   }
 
   get stoned() {
-    return this._damage;
+    return this._stoned
   }
 }

@@ -1,34 +1,42 @@
-// import Character from '../js/Character';
 import Daemon from '../js/Daemon';
 import Magician from '../js/Magician';
 
-test.each([
-  ['attack', 2, 90],
-  ['attack', 6, 0],
+test('class method test get/set attack', () => {
+  const magician = new Magician();
+  magician.attack = 2;
+  magician.stoned = false;
+  const result = magician.attack
 
-])(
-  ('testing class method get/set attack for %s attack with %i distance'),
-  (_, distance, expected) => {
-    const magician = new Magician();
-    magician.attack = distance;
-    const result = magician.attack
+  expect(result).toBe(90);
+});
 
-    expect(result).toBe(expected);
-  }
-);
-
-
-test.each([
-  ['stoned', 2, 85],
-  ['stoned', 0, 0],
-
-])(
-  ('testing class method get/set stoned for %s stoned with %i distance'),
-  (_, distance, expected) => {
+test('class method test get/set attack distance error', () => {
+  try {
     const deamon = new Daemon();
-    deamon.stoned = distance;
-    const result = deamon.stoned;
-
-    expect(result).toBe(expected);
+    deamon.attack = 6;
+    deamon.stoned = true;
+    deamon.attack;
+  } catch (error) {
+    expect(error.message).toBe('Расстояние атаки должно быть от 1 до 5');
   }
-);
+
+});
+
+test('class method test get/set stoned attack', () => {
+  const deamon = new Daemon();
+  deamon.attack = 2;
+  deamon.stoned = true;
+  const result = deamon.attack;
+
+  expect(result).toBe(85);
+});
+
+
+
+test('class method test get/set stoned', () => {
+  const deamon = new Daemon();
+  deamon.stoned = true;
+  const result = deamon.stoned;
+
+  expect(result).toBe(true);
+});
