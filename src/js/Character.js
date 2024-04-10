@@ -10,20 +10,20 @@ export default class Character {
     };
   }
 
-  set attack(distance) {
-    if (distance <= 5 && distance > 0) {
-      this.distance = distance;
+  set attack(attack) {
+    if (attack <= 5 && attack > 0) {
+      this._attack = attack;
     } else {
-      throw new Error('Расстояние атаки должно быть от 1 до 5');
+      throw new Error('Атака должна быть от 1 до 5');
     }
   }
 
   get attack() {
     if (!this._stoned) {
-      return this._damage = this.damage * this.damageReduction[this.distance] / 100;
+      return this._damage = this.damage * this.damageReduction[this._attack] / 100;
     } else {
-      const reducedAttack = this.damage * this.damageReduction[this.distance] / 100;
-      return this._damage = reducedAttack - Math.log2(this.distance) * 5;
+      const reducedAttack = this.damage * this.damageReduction[this._attack] / 100;
+      return this._damage = reducedAttack - Math.log2(this._attack) * 5;
     }
   }
 

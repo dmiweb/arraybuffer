@@ -17,7 +17,7 @@ test('class method test get/set attack distance error', () => {
     deamon.stoned = true;
     deamon.attack;
   } catch (error) {
-    expect(error.message).toBe('Расстояние атаки должно быть от 1 до 5');
+    expect(error.message).toBe('Атака должна быть от 1 до 5');
   }
 
 });
